@@ -73,13 +73,12 @@ RUN sudo apt-get update && \
     python-catkin-tools \
     ros-melodic-moveit-*
 
-# Setup ROS workspace directory and fetch BioTac ROS packages
+# Setup ROS workspace directory
 RUN mkdir -p $HOME/workspace/src && \
     catkin init --workspace $HOME/workspace/ && \
     cd $HOME/workspace/src
 
-# Python3 for ROS and shadowevents
-# rosbag/rospkg in biotac_export depends on python2 libraries
+# Python3 for ROS and related necessary libraries
 RUN sudo apt-get update && \
     sudo apt-get install -y python-pip python3-pip python3-yaml && \
     sudo -H python3 -m pip install --upgrade pip && \
@@ -113,3 +112,4 @@ RUN source /opt/ros/melodic/setup.bash && \
 WORKDIR ${HOME}/workspace/
 RUN echo 'source /opt/ros/melodic/setup.bash' >> $HOME/.bashrc && \
     echo 'source $HOME/workspace/devel/setup.bash' >> $HOME/.bashrc
+CMD /bin/bash
